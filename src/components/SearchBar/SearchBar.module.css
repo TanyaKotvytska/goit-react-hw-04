@@ -1,0 +1,51 @@
+.formsearchbar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.inputsearchbar {
+    width: 272px;
+    height: 40px;
+    border-radius: 4px;
+    border: 1px solid #808080;
+    color: #2E2F42;
+    font-family: "Montserrat", sans-serif;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.5;
+    padding: 0 16px;
+    box-sizing: border-box;
+}
+
+.inputsearchbar:hover {
+    border-radius: 4px;
+    border: 1px solid #000;
+}
+
+.inputsearchbar:active,
+.inputsearchbar:focus {
+    outline: none;
+    border-radius: 4px;
+    border: 1px solid #a14eff;
+    color: #000
+}
+
+.btnsearchbar {
+    border-radius: 8px;
+    padding: 8px 16px;
+    width: 91px;
+    height: 40px;
+    border: none;
+    cursor: pointer;
+    background: #a14eff;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.btnsearchbar:hover {
+    background: #a008d7;
+}
