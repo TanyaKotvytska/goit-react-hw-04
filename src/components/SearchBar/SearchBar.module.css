@@ -28,7 +28,7 @@
 .inputsearchbar:focus {
     outline: none;
     border-radius: 4px;
-    border: 1px solid #a14eff;
+    border: 1px solid #4addae;
     color: #000
 }
 
@@ -39,7 +39,7 @@
     height: 40px;
     border: none;
     cursor: pointer;
-    background: #a14eff;
+    background: #4addae;
     font-weight: 500;
     font-size: 16px;
     line-height: 1.5;
@@ -47,5 +47,5 @@
 }
 
 .btnsearchbar:hover {
-    background: #a008d7;
+    background: #219d5d;
 }

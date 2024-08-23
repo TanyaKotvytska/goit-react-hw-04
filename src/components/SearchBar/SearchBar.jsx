@@ -1,5 +1,4 @@
 import css from "./SearchBar.module.css"
-import { useState } from "react";
 
 export default function SearchBar({ onSearch }) {
 
@@ -24,8 +23,8 @@ export default function SearchBar({ onSearch }) {
                     <input
                         className={css.inputsearchbar}
                         type="text"
-                        autocomplete="off"
-                        autofocus
+                        autoComplete="off"
+                        autoFocus
                         placeholder="Search images and photos"
                     />
                     <button className={css.btnsearchbar} type="submit">Search</button>
