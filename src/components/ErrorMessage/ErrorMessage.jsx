@@ -1,5 +1,7 @@
-import React from 'react';
+import css from './ErrorMessage.module.css'
 
-export default function ErrorMessage() {
-    return <p>There was an error fetching the images. Please try again.</p>;
+export default function ErrorMessage({ message }) {
+    return (
+        <p className={css.error}>{message}</p>
+    );
 }

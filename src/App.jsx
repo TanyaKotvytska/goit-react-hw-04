@@ -1,51 +1,68 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import SearchBar from './components/SearchBar/SearchBar'
-import { fetchImagesWithTopic } from "./images-api"
+import { fetchImages } from "./images-api"
 import ImageGallery from './components/ImageGallery/ImageGallery';
+import Loader from '../src/components/Loader/Loader';
+import LoadMoreBtn from '../src/components/LoadMoreBtn/LoadMoreBtn';
+import ImageModal from '../src/components/ImageModal/ImageModal';
+import ErrorMessage from '../src/components/ErrorMessage/ErrorMessage';
 
 export default function App() {
+  const [query, setQuery] = useState('');
   const [images, setImages] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(1);  
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [selectedImg, setSelectedImg] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleSearch = async (topic) => {
-	try {
-	  setImages([]);
-	  setError(false);
-      setLoading(true);
-      const data = await fetchImagesWithTopic(topic);
-      setImages(data);
-    } catch (error) {
-      setError(true);
-    } finally {
-      setLoading(false);
-    }
-  };
+    useEffect(() => {
+    if (!query) return;
 
-  const handleLoadMore = async () => {
-        try {
-            setLoading(true);
-            const data = await fetchImagesWithTopic('', page + 1); 
-            setImages(prevImages => [...prevImages, ...data]);
-            setPage(prevPage => prevPage + 1);
-        } catch (error) {
-            setError(true);
-        } finally {
-            setLoading(false);
-        }
+    const fetchData = async () => {
+      setIsLoading(true);
+      try {
+        const data = await fetchImages(query, page);
+        console.log(data.results);
+        setImages(prevImages => [...prevImages, ...data.results]);
+      } catch (error) {
+        setError(error.message);
+      } finally {
+        setIsLoading(false);
+        setError(null);
+      }
     };
 
+    fetchData();
+  }, [query, page]);
+
+  
+  const handleSearchSubmit = newQuery => {
+    if (query === newQuery) return;
+    setQuery(newQuery);
+    setImages([]);
+    setPage(1);
+  }
+
+  const handleImageClick = image => {
+    setSelectedImg(image);
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedImg(null);
+  };
+
   return (
-    <>
-      <SearchBar onSearch={handleSearch} />
-      <ImageGallery
-                images={images}
-                loading={loading}
-                error={error}
-                onLoadMore={handleLoadMore}
-            />
-    </>
+    <div>
+      <SearchBar onSubmit={handleSearchSubmit} />
+      {error && <ErrorMessage message={error} />}
+      <ImageGallery images={images} onImageClick={handleImageClick} />
+      {isLoading && <Loader />}
+      {images.length > 0 && !isLoading && <LoadMoreBtn onLoadMore={() => setPage(prevPage => prevPage + 1)} />}
+      <ImageModal isOpen={isModalOpen} onClose={closeModal} image={selectedImg} />
+    </div>
   );
 }
