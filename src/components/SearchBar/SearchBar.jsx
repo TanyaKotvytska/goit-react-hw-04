@@ -1,35 +1,43 @@
+import React from 'react';
 import css from "./SearchBar.module.css"
+import { toast } from 'react-hot-toast';
 
 export default function SearchBar({ onSearch }) {
-
     const handleSubmit = (evt) => {
-    evt.preventDefault();
-    const form = evt.target;
-        const topic = form.elements.topic.value;
-        
-        if(form.elements.topic.value.trim() === "") {
-			alert("Please enter search term!")
-			return;
-		}
+        evt.preventDefault();
 
-    onSearch(topic);
-        form.reset();
+        const formData = new FormData(evt.target);
+        const topic = formData.get('topic');
+
+        if (!topic) {
+            toast.error("Please enter search term!");
+            return;
+        }
+
+        const trimmedTopic = topic.trim();
+
+        if (trimmedTopic === "") {
+            toast.error("Please enter search term!");
+            return;
+        }
+
+        onSearch(trimmedTopic);
+        evt.target.reset();
     };
-    
+
     return (
-        <div className={css.searchbarcontainer}>
-            <header className={css.headersearchbar}>
-                <form className={css.formsearchbar} onSubmit={handleSubmit}>
-                    <input
-                        className={css.inputsearchbar}
-                        type="text"
-                        autoComplete="off"
-                        autoFocus
-                        placeholder="Search images and photos"
-                    />
-                    <button className={css.btnsearchbar} type="submit">Search</button>
-                </form>
-            </header>
-        </div>
+        <header className={css.headersearchbar}>
+            <form className={css.formsearchbar} onSubmit={handleSubmit}>
+                <input
+                    className={css.inputsearchbar}
+                    type="text"
+                    name="topic"
+                    autoComplete="off"
+                    autoFocus
+                    placeholder="Search images and photos"
+                />
+                <button className={css.btnsearchbar} type="submit">Search</button>
+            </form>
+        </header>
     );
 }
