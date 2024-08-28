@@ -1,0 +1,27 @@
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    /* Простір між картками */
+    padding: 0;
+    list-style: none;
+    justify-content: center;
+    /* Вирівнює галерею по центру */
+}
+
+.item {
+    flex: 1 1 calc(33.333% - 32px);
+    /* 3 колонки з відступами */
+    box-sizing: border-box;
+    overflow: hidden;
+    border-radius: 8px;
+    /* Закруглені кути для карток */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.item:hover {
+    transform: scale(1.05);
+    /* Збільшення при наведенні */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Тінь при наведенні */
+}

@@ -33,19 +33,19 @@
 }
 
 .btnsearchbar {
-    border-radius: 8px;
-    padding: 8px 16px;
+    background-color: #4addae;
+    color: #fff;
+    border: none;
     width: 91px;
     height: 40px;
-    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     cursor: pointer;
-    background: #4addae;
-    font-weight: 500;
-    font-size: 16px;
-    line-height: 1.5;
-    color: #fff;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .btnsearchbar:hover {
     background: #159e7e;
+    transform: scale(1.05);
 }
